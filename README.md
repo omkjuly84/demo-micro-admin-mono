@@ -24,7 +24,160 @@ _이때 반드시 기존 pom.xml 파일과 MonolithicAdminApplication.java 파�
 
 <br>
 
-### 3. 이미 예약된 Controller Endpoint
+
+### 3. 관리자도구 설정
+
+#### 로그인 화면 설정
+
+- 로그인 화면 설정 property 는 platform.config.admin.view.login.* 의 하위 요소 입니다.
+
+| 항목             | property                      | 입력 예시                                   | 설명                                                                                                      |
+|----------------|-------------------------------|-----------------------------------------|---------------------------------------------------------------------------------------------------------|
+ | 로그인 타이틀        | title                         | Rchemist Admin Console                  | 로그인 폼에 표시하는 타이틀                                                                                         |
+| 부가 설명 메시지      | description                   | Welcome to RCM MicroShop Admin Console! | 타이틀 하단에 표시되는 설명 문구                                                                                      |
+| 로그인 로고 이미지     | logoImage                     | ./image/login_logo.png                  | 로그인 폼 상단에 표시할 로고 이미지. 입력하지 않으면 아무 것도 표시되지 않으며, 세로 40px 이내의 크기로 저장해야 함                                   |
+| 로그인 폼 타이틀      | loginFormTitle                | 로그인                                     | 로그인 입력폼 상단에 표시될 문구                                                                                      |
+| 비밀번호 찾기 폼 타이틀  | requestFormTitle              | 비밀번호 찾기                                 | 비밀번호 찾기 입력폼 상단에 표시될 문구                                                                                  |
+| 아이디 라벨         | labelUsername                 | 아이디                                     | 타이틀 하단에 표시되는 설명 문구                                                                                      |
+| 비밀번호 라벨        | labelPassword                 | 비밀번호                                    | 타이틀 하단에 표시되는 설명 문구                                                                                      |
+| 비밀번호 찾기 입력폼 라벨 | labelRequest                  | 아이디 또는 이메일                              | 타이틀 하단에 표시되는 설명 문구                                                                                      |
+| 로그인 에러 타이틀     | errorLoginSubmitTitle         | 로그인할 수 없습니다.                            | 로그인 실패 시 ! 와 함께 표시될 에러 타이틀                                                                              |
+| 로그인 에러 메시지     | errorLoginSubmitDescription   | 아이디 또는 비밀번호를 다시 확인해 주세요.                | 로그인 실패 상세 설명                                                                                            |
+| 비밀번호 찾기 에러 타이틀 | errorRequestSubmitTitle       | 사용자 정보를 확인할 수 없습니다.                     | 비밀번호 찾기 실패 시 ! 와 함께 표시될 에러 타이틀                                                                          |
+| 비밀번호 찾기 에러 메시지 | errorRequestSubmitDescription | 아이디 또는 이메일을 다시 확인해 주세요.                 | 비밀번호 찾기 실패 시 상세 설명                                                                                      |
+| 로그인 SUBMIT     | buttonLoginText               | 로그인                                     | 로그인 입력폼 SUBMIT 버튼 텍스트                                                                                   |
+| 로그인 링크 텍스트     | buttonLinkLoginText           | 로그인 화면으로                                | 비밀번호 찾기 입력폼에서 로그인 입력폼으로 전환할 때 링크 텍스트                                                                    |
+| 비밀번호 찾기 SUBMIT | buttonRequestText             | 비밀번호 찾기                                 | 비밀번호 찾기 입력폼 SUBMIT 버튼 텍스트                                                                               |
+| 비밀번호 찾기 링크 텍스트 | buttonLinkRequestText         | 로그인이 안 되시나요?                            | 로그인 입력폼에서 비밀번호 입력폼으로 전환할 때 링크 텍스트                                                                       |
+| 테마             | theme                         | red                                     | 로그인 화면 테마 선택. BLUE, LIGHT_BLUE, GREEN, LIGHT_GREEN, VIOLET, YELLOW, YELLOW_WHITE, HOT_PINK, RED , BLACK |
+
+- 로그인 테마
+
+![로그인_테마](./asset/login_theme.png)
+
+
+
+#### 메뉴 로고 이미지 변경
+
+- platform.config.admin.*
+
+| 항목                    | property        | 입력 예시                  |
+|-----------------------|-----------------|------------------------|
+| 메뉴 상단 로고 이미지 URL      | view.logo-image | /images/logo.png       |
+| 메뉴 상단 로고 이미지 ALT TEXT | view.logo-text  | Rchemist Admin Console |
+
+
+#### 대시보드 게시판 보기 설정
+
+- platform.config.admin.dashboard.board.*
+
+| 항목                     | property   | 입력 예시                     | 설명                                                                       |
+|------------------------|------------|---------------------------|--------------------------------------------------------------------------|
+| 조회 대상 게시판 Alias        | alias      | notice, qna, free, report | 등록된 게시판의 alias 를 입력하면 대시보드에 해당 게시판의 최신 게시물이 표시됩니다                        |
+| 표시할 게시물 개수             | row-size   | 3                         | 대시보드에서 각 게시판의 게시물을 설정된 개수만큼 표시합니다                                        |
+| 한 줄에 게시판을 두개씩 표시할 지 여부 | split-view | true                      | 대시보드 화면에 게시판을 표시할 때 한 줄에 하나씩 표시할지(false), 한 줄에 두개씩 분할해 표시할지(true) 선택합니다. |
+| 대시보드 캐시 타임(분)          | refresh    | 5                         | 설정된 캐시 주기마다 게시판 데이터를 조회합니다                                               | 
+
+#### 관리자도구 메뉴 설정
+
+- platform.config.admin.menu.*
+
+| 항목       | property | 입력 예시                       | 설명                                                                                                                                         |
+|----------|----------|-----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| 사용 가능 메뉴 | explicit | DASHBOARD, CUSTOMER, TENANT | 관리자도구에 기본 제공되는 메뉴 대신, 명시적으로 사용할 메뉴를 설정하면 해당 메뉴만 표시됩니다. 입력할 수 있는 문자열은 SectionType 클래스에 정의된 SectionType 값 입니다. 아무 설정이 없는 경우 전체 메뉴를 모두 표시합니다. |
+| 사용 불가 메뉴 | exclude  | CUSTOMER, TENANT            | 관리자도구 메뉴에서 property 로 지정된 메뉴를 제거할 수 있습니다.                                                                                                  |
+#### 관리자도구 로그인 보안 설정 (OTP)
+
+다음 옵션을 활성화 하면 관리자도구에 로그인할 때 지정된 인증 수단에 의한 2 Factor 로그인 기능을 사용할 수 있습니다.
+
+- platform.config.admin.notification.*
+
+| 항목             | property         | 입력 예시                | 설명                                                                                                                              |
+|----------------|------------------|----------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| 아이디 비밀번호 찾기 수단 | find-id-password | EMAIL, SMS, KAKAO... | 관리자도구의 아이디 비밀번호 찾기 할 때 로그인 정보를 어떤 타입의 메시지로 전송할지 설정합니다. io.rchemist.common.jpa.domain.type.NotificationType.type 참조.             |
+| 2 Factor 로그인   | two-factor-login | SMS, KAKAO...        | 관리자도구에서 2팩터 로그인 기능을 사용할 때 Secure code 를 어떤 타입의 메시지로 전송할 것인지 설정합니다. io.rchemist.common.jpa.domain.type.NotificationType.type 참조. |
+
+<br>
+
+#### 관리자도구 로그인 보안 설정 (MFA)
+
+다음 옵션을 활성화 하면 관리자도구에 로그인할 때 MFA 인증을 사용할 수 있습니다.
+
+- platform.config.admin.security.mfa.*
+
+| 항목               | property      | 입력 예시  | 설명                                          |
+|------------------|---------------|--------|---------------------------------------------|
+| MFA 사용 여부        | force         | true   | 관리자도구 로그인을 할 때 MFA 를 사용할 것인지 여부, 기본값은 false |
+| MFA Code 알고리즘    | algorithm     | SHA512 | MFA 발급 코드의 해싱 알고리즘. 기본값은 SHA512             |
+| MFA Code 길이      | digits-length | 12     | MFA 발급 코드의 길이. 기본값은 6                       |
+| MFA Code 유효기간(초) | time-period   | 30     | MFA 발급 코드의 유효 기간(초). 기본값은 15                |
+
+
+#### 관리자도구 GRID 설정
+
+
+- platform.config.admin.view.*
+
+| 항목                  | property           | 입력 예시     | 설명                                                                                                     |
+|---------------------|--------------------|-----------|--------------------------------------------------------------------------------------------------------|
+| 리스트그리드 필터 모드        | filter.type        | LAYER     | 리스트그리드의 상세 검색 필터를 표시할 때 목록 위에 Div 로 표시할 지(LAYER), 모달 윈도우로 띄워 표시할지(MODAL)                               |
+| 리스트그리드 날짜 표시 방법     | filter.date-format | DATETIME  | 리스트그리드의 목록에 날짜를 표시할 때 날짜만(yyyy-MM-dd) 표시할 것인지(DATE), 날짜와 시각을 함께(yyyy-MM-dd HH:mm:ss) 표시할 것인지(DATETIME) |
+| 리스트그리드 사용자 정보 표시 방법 | grid.user-field    | loginName | 리스트그리드의 목록에 사용자 정보를 표시할 때 로그인 아이디를 보여 줄 것인지(loginName), 사용자 이름을 보여 줄 것인지(userName)                     |
+
+
+#### 관리자도구 메뉴(LNB) 설정
+
+##### 특정 메뉴만 표시하기
+
+관리자도구에 제공하는 메뉴 중 특정 메뉴만 표시하도록 설정할 수 있습니다. 이 경우 설정되지 않은 다른 모든 메뉴는 표시되지 않습니다.
+
+- platform.config.admin.menu.*
+
+| 항목       | property           | 입력 예시            | 설명                                                                                                     |
+|----------|--------------------|------------------|--------------------------------------------------------------------------------------------------------|
+| 표시 메뉴 지정 | explicit           | CUSTOMER,MILEAGE | 표시하고자 하는 SectionType.type 값을 , 로 구분해 공백 없이 입력                                                          |
+
+##### 특정 메뉴를 표시하지 않기
+
+관리자도구에 제공하는 메뉴 중 특정 메뉴만 표시하지 않도록 설정할 수 있습니다.
+- platform.config.admin.menu.*
+
+| 항목       | property | 입력 예시            | 설명                                            |
+|----------|----------|------------------|-----------------------------------------------|
+| 제외 메뉴 지정 | exclude  | CUSTOMER,MILEAGE | 제외하고자 하는 SectionType.type 값을 , 로 구분해 공백 없이 입력 |
+
+*explicit 으로 설정한 메뉴를 exclude 에 설정하면 해당 메뉴가 보이지 않게 됩니다.*
+
+
+#### 회원 관리 기능 설정
+
+관리자도구 > 회원관리 기능을 설정할 수 있습니다. 
+
+- platform.config.customer.create.admin.*
+
+| 항목                | property | 입력 예시                       | 설명                                                                                                                                            |
+|-------------------|----------|-----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| 회원 생성<br/>사용 여부   | enabled  | false                       | 관리자도구에서 회원 생성 기능을 사용할 것인지(true), 사용하지 않을 것인지(false)<br/>기본값은 false                                                                            |
+ | 회원 생성 시<br/>사용 필드 | fields   | loginName<br/>,emailAddress | 관리자도구에서 회원을 생성할 때 사용할 필드를 명시적으로 지정<br/>기본값은 없으며, 이 값이 없을 때는 CustomerCreateForm 의 기본값을 사용함.<br/>단, loginName 과 emailAddress 는 지정하지 않아도 무조건 추가됨 |
+
+- platform.config.admin.view.customer.list.*
+
+| 항목            | property        | 입력 예시 | 설명                                               |
+|---------------|-----------------|-------|--------------------------------------------------|
+| Hidden 기능 활성화 | hidden-customer | true  | 관리자도구 회원 관리에서 회원 hidden 기능을 사용할지 여부. (기본값 false) |
+
+
+#### 기타
+
+- platform.config.admin.*
+
+| 항목                     | property                           | 입력 예시    | 설명                                                                      |
+|------------------------|------------------------------------|----------|-------------------------------------------------------------------------|
+| 메타데이터 캐시 여부            | metadata.cacheable                 | true     | 관리자도구 메타데이터를 캐시할 지 여부. 운영 시스템에는 반드시 true 로 설정해야 합니다. (기본값 true)         |
+| 사이트 이름                 | site-name                          | RCHEMIST | 관리자도구 어플리케이션에서 사용하는 사이트 이름. (기본값 없음). 메시지를 발송하거나 UI 에서 사이트 이름을 표시할 때 사용 |
+
+
+### 4. 이미 예약된 Controller Endpoint
 
 다음 endpoint URL 은 플랫폼 내부에서 이미 사용중입니다. 추가 개발 시 아래 URL 은 사용할 수 없습니다.
 
@@ -44,9 +197,9 @@ IDE 에서 프로젝트를 열고 아래 각 Controller 를 탐색하면 실제 
     - io.rchemist.cms.page.controller.PageController
     - io.rchemist.cms.page.controller.PageFieldController
 - /commerce/**
-    - 커뮤니티 프로젝트에서는 지원하지 않으나, 해당 endpoint url 은 사용 금지.
+    - 커뮤니티 프로젝트에서는 지원하지 않으나, 해당 endpoint url 은 사용 불가.
 - /event/**
-    - 모놀리틱 서비스 모드에서는 지원하지 않으나, 해당 endpoint url 은 사용 금지.
+    - 모놀리틱 서비스 모드에서는 지원하지 않으나, 해당 endpoint url 은 사용 불가.
 - /tenant/**
     - io.rchemist.tenant.controller.TenantController
     - io.rchemist.tenant.security.AdminUserAuthenticationController
@@ -435,7 +588,7 @@ spring.profiles.active=production
 
 기본적으로는 java -jar demo-micro-admin-mono-0.0.1-SNAPSHOT.jar 만 실행하면 됩니다. 하지만 이렇게 할 경우 spring boot jar 파일이 로드될 때 모든 class path 를 계속 탐색하게 되어 SpringBoot 의 기동 속도가 매우 느려집니다.
 
-이 문제를 방지하기 위해 다음 구문을 이용하면 됩니다.
+이 문제를 방지하기 위해 다음 구문을 이용합니다.
 
 ```shell
 java -jar -Xverify:none -XX:TieredStopAtLevel=1 demo-micro-admin-mono-0.0.1-SNAPSHOT.jar
